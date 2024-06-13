@@ -55,7 +55,7 @@ const VerifyAccount = () => {
         </h1>
         <p className="mb-4">Enter the verification code sent to your email</p>
       </div>
-      <Form {...form}>
+      <Form  {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             name="code"

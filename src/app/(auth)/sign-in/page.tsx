@@ -20,11 +20,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 const Page = () => {
   const { toast } = useToast(); //for error messages
   const router = useRouter(); //for navigation
-  // const [isSubmit, setIsSubmit] = useState(false); //form submited or not
+  const [isSubmit, setIsSubmit] = useState(false); //form submited or not
 
   // zod implementation
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -36,7 +38,7 @@ const Page = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    // setIsSubmit(true);
+    setIsSubmit(true);
 
     const result = await signIn("credentials", {
       redirect: false,
@@ -51,12 +53,14 @@ const Page = () => {
           description: "Incorrect username or password",
           variant: "destructive",
         });
+        setIsSubmit(false);
       } else {
         toast({
           title: "Login Failed",
           description: result.error,
           variant: "destructive",
         });
+        setIsSubmit(false);
       }
     }
 
@@ -67,6 +71,7 @@ const Page = () => {
         variant: "destructive",
       });
       router.replace('/dashboard');
+      setIsSubmit(false);
     }
   };
   return (
@@ -109,7 +114,7 @@ const Page = () => {
               )}
             />
 
-            {/* <Button type="submit" disabled={isSubmit}>
+            <Button type="submit" disabled={isSubmit} className='w-full'>
               {isSubmit ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -118,8 +123,7 @@ const Page = () => {
               ) : (
                 "Sign In"
               )}
-            </Button> */}
-            <Button className='w-full' type="submit">Sign In</Button>
+            </Button>
           </form>
         </Form>
         <div className="text-center mt-4">
