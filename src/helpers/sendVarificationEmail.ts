@@ -11,7 +11,7 @@ export const sendVerificationEmail = async (
             await resend.emails.send({
                 from: 'onboarding@resend.dev',
                 to: email,
-                subject: 'Mystry Message | Varification Code',
+                subject: 'Honest Echoes | Varification Code',
                 react: varificationEmail({username, otp: verifyCode}),
               });
               

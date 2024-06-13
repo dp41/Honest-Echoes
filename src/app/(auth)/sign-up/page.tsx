@@ -29,7 +29,7 @@ const Page = () => {
   const [usernameMessage, setUsernameMessage] = useState("");
   const [isLoader, setIsLoader] = useState(false); //for loading
   const [isSubmit, setIsSubmit] = useState(false); //form submited or not
-  const debounced = useDebounceCallback(setUsername, 300); //to avoid multiple api calls for checking about unique username
+  // const debounced = useDebounceCallback(setUsername, 300); //to avoid multiple api calls for checking about unique username
   const { toast } = useToast(); //for error messages
   const router = useRouter(); //for navigation
 
@@ -124,7 +124,7 @@ const Page = () => {
                       {...field}
                       onChange={(e) => {
                         field.onChange(e);
-                        debounced(e.target.value);
+                        setUsername(e.target.value);
                       }}
                       autoComplete="off"
                     />
